@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.lucascabrales.montecarlosimulation.helpers.AlertDialogHelper;
 import com.lucascabrales.montecarlosimulation.helpers.LoadingDialogHelper;
 import com.lucascabrales.montecarlosimulation.models.RandomWalk;
+import com.robinhood.spark.SparkAdapter;
+import com.robinhood.spark.SparkView;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,8 @@ public class RandomWalkActivity extends AppCompatActivity {
     private RandomWalkActivity mContext = this;
     private LoadingDialogHelper mLoading;
     private AlertDialogHelper mAlertDialog;
+    private LineChart mChart;
+    private SparkView mSparkView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,24 +118,76 @@ public class RandomWalkActivity extends AppCompatActivity {
                 } else {
                     findViewById(R.id.ll_results).setVisibility(View.VISIBLE);
 
-                    showGraph(randomWalk);
+//                    showGraph(randomWalk);
+
+                    showSpark(randomWalk);
                 }
             }
         }.execute(iterations);
     }
 
-    private void showGraph(RandomWalk randomWalk) {
-        LineChart chart = findViewById(R.id.chart);
+    private void showSpark(RandomWalk randomWalk) {
+        if (mSparkView == null)
+            mSparkView = findViewById(R.id.spark_view);
 
-        chart.getDescription().setEnabled(false);
-        chart.getLegend().setEnabled(false);
-        chart.setNoDataText("No hay datos que mostrar");
-        chart.setNoDataTextColor(ContextCompat.getColor(mContext, R.color.color_accent));
-        chart.setHighlightPerTapEnabled(true);
-        chart.getXAxis().setDrawGridLines(false);
-        chart.getAxisLeft().setDrawGridLines(true);
-        chart.getAxisRight().setDrawGridLines(false);
-        chart.getAxisRight().setDrawLabels(false);
+        mSparkView.setAdapter(
+                new CustomSparkAdapter(randomWalk.yArray, randomWalk.xArray));
+    }
+
+    public class CustomSparkAdapter extends SparkAdapter {
+        private float[] yData;
+        private float[] xData;
+
+        public CustomSparkAdapter(float[] yData, float[] xData) {
+            this.yData = yData;
+            this.xData = xData;
+        }
+
+        @Override
+        public int getCount() {
+            return yData.length;
+        }
+
+        @Override
+        public Object getItem(int index) {
+            return yData[index];
+        }
+
+        @Override
+        public float getY(int index) {
+            return yData[index];
+        }
+
+        @Override
+        public float getX(int index) {
+            return xData[index];
+        }
+    }
+
+    private void showGraph(RandomWalk randomWalk) {
+        if (mChart == null) {
+            mChart = findViewById(R.id.chart);
+
+            //style chart
+            mChart.getDescription().setEnabled(false);
+            mChart.getLegend().setEnabled(false);
+            mChart.setNoDataText("No hay datos que mostrar");
+            mChart.setNoDataTextColor(ContextCompat.getColor(mContext, R.color.color_accent));
+            mChart.setHighlightPerTapEnabled(false);
+            mChart.getXAxis().setDrawGridLines(false);
+            mChart.getAxisLeft().setDrawGridLines(true);
+            mChart.getAxisRight().setDrawGridLines(false);
+            mChart.getAxisRight().setDrawLabels(false);
+
+            //disable interactions
+            mChart.setTouchEnabled(false);
+            mChart.setDragEnabled(false);
+            mChart.setScaleEnabled(false);
+            mChart.setScaleXEnabled(false);
+            mChart.setScaleYEnabled(false);
+            mChart.setPinchZoom(false);
+            mChart.setDoubleTapToZoomEnabled(false);
+        }
 
         // add data
         ArrayList<Entry> values = new ArrayList<>();
@@ -139,15 +196,20 @@ public class RandomWalkActivity extends AppCompatActivity {
             values.add(new Entry(randomWalk.xArray[i], randomWalk.yArray[i]));
         }
 
-        chart.setData(generateLineData(values));
-        chart.invalidate();
+//        Collections.sort(values, new EntryXComparator());
+
+        mChart.setData(generateLineData(values));
+        mChart.notifyDataSetChanged();
+        mChart.invalidate();
+
+        Log.e("CHART DATA", mChart.getLineData().getDataSets().get(0).toString());
     }
 
     private LineData generateLineData(ArrayList<Entry> values) {
         LineDataSet dataSet = new LineDataSet(values, "Random Walk");
         dataSet.setColor(ContextCompat.getColor(mContext, R.color.color_accent_dark));
         dataSet.setDrawCircles(false);
-        dataSet.setDrawValues(true);
+        dataSet.setDrawValues(false);
 
         return new LineData(dataSet);
     }

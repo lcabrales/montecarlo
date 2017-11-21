@@ -25,4 +25,19 @@
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
+    <style name="SparkViewStyle" parent="@style/spark_SparkView">
+        <item name="spark_lineColor">@color/color_accent_dark</item>
+        <item name="spark_lineWidth">1dp</item>
+        <item name="spark_cornerRadius">0dp</item>
+        <item name="spark_fill">false</item>
+
+        <!--<item name="spark_baseLineColor">@color/base_line_color</item>
+        <item name="spark_baseLineWidth">@dimen/base_line_width</item>
+
+        <item name="spark_scrubLineColor">@color/scrub_line_color</item>
+        <item name="spark_scrubLineWidth">@dimen/scrub_line_width</item>
+        <item name="spark_scrubEnabled">true</item>-->
+
+        <item name="spark_animateChanges">true</item>
+    </style>
 </resources>
