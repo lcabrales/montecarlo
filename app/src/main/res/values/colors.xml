@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#1F91FC</color>
+    <color name="color_primary_dark">#1560a7</color>
+    <color name="color_accent">#002553</color>
+    <color name="color_accent_dark">#001025</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#e2b500</color>
+    <color name="toolbar">#f1f1f1</color>
+    <color name="nav_drawer_background">#BE4796FF</color>
+    <color name="nav_drawer_shadow">#CF000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="ripple">@color/color_accent</color>
+    <color name="ripple_dark">@color/color_accent_dark</color>
+    <color name="gray">#4B4B4B</color>
+</resources>
