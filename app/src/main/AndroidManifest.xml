@@ -31,6 +31,7 @@
             android:name=".RandomWalkActivity"
             android:label="Random Walk"
             android:screenOrientation="portrait" />
+        <activity android:name=".MachineActivity"></activity>
     </application>
 
 </manifest>

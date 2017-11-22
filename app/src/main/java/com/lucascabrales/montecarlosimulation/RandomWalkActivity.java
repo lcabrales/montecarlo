@@ -3,21 +3,19 @@ package com.lucascabrales.montecarlosimulation;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.lucascabrales.montecarlosimulation.helpers.AlertDialogHelper;
 import com.lucascabrales.montecarlosimulation.helpers.LoadingDialogHelper;
 import com.lucascabrales.montecarlosimulation.models.RandomWalk;
+import com.lucascabrales.montecarlosimulation.models.Step;
 import com.robinhood.spark.SparkAdapter;
 import com.robinhood.spark.SparkView;
 
@@ -28,8 +26,11 @@ public class RandomWalkActivity extends AppCompatActivity {
     private RandomWalkActivity mContext = this;
     private LoadingDialogHelper mLoading;
     private AlertDialogHelper mAlertDialog;
-    private LineChart mChart;
     private SparkView mSparkView;
+    private CustomSparkAdapter mSparkAdapter;
+    private CountDownTimer mTimer;
+    private RandomWalk mRandomWalk;
+    private int stepCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class RandomWalkActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private void calculateRandomWalk() {
-        Integer iterations = Integer.parseInt(((EditText) findViewById(R.id.et_iterations)).getText().toString());
+        Integer steps = Integer.parseInt(((EditText) findViewById(R.id.et_iterations)).getText().toString());
 
         new AsyncTask<Integer, String, RandomWalk>() {
             @Override
@@ -120,97 +121,118 @@ public class RandomWalkActivity extends AppCompatActivity {
 
 //                    showGraph(randomWalk);
 
-                    showSpark(randomWalk);
+                    showResults(randomWalk);
                 }
             }
-        }.execute(iterations);
+        }.execute(steps);
     }
 
-    private void showSpark(RandomWalk randomWalk) {
-        if (mSparkView == null)
-            mSparkView = findViewById(R.id.spark_view);
+    private void showResults(RandomWalk randomWalk) {
+        if (mTimer != null) mTimer.cancel();
 
-        mSparkView.setAdapter(
-                new CustomSparkAdapter(randomWalk.yArray, randomWalk.xArray));
+        mRandomWalk = randomWalk;
+        stepCounter = 0;
+
+        ArrayList<Step> steps = new ArrayList<>();
+
+        Step step = new Step();
+        step.x = randomWalk.xArray[0];
+        step.y = randomWalk.yArray[0];
+
+        steps.add(step);
+
+        if (mSparkView == null) {
+            mSparkView = findViewById(R.id.spark_view);
+        }
+
+        mSparkAdapter = new CustomSparkAdapter(steps);
+
+        mSparkView.setAdapter(mSparkAdapter);
+
+        int duration = Integer.parseInt(((EditText) findViewById(R.id.et_duration)).getText().toString());
+        duration *= 1000; //convert to milliseconds
+        startAnimation(duration);
+    }
+
+    public void startAnimation(int duration) {
+        long dummyTime = System.currentTimeMillis();
+
+        int countdown = duration / mRandomWalk.steps;
+
+        mTimer = new CountDownTimer(dummyTime, countdown) {
+
+            public void onTick(long millis) {
+                //OBTIENE LOS VALORES ALEATORIOS
+                nextStep(stepCounter);
+
+                stepCounter++;
+
+                if (stepCounter == mRandomWalk.xArray.length) {
+                    String coordinates = "(" + mRandomWalk.xArray[mRandomWalk.xArray.length - 1] + ", "
+                            + mRandomWalk.yArray[mRandomWalk.yArray.length - 1] + ")";
+                    ((TextView) findViewById(R.id.tv_final_coordinates)).setText(coordinates);
+
+                    mTimer.cancel();
+                }
+            }
+
+            public void onFinish() {
+
+            }
+        };
+
+        mTimer.start();
+    }
+
+    private void nextStep(int index) {
+        Step step = new Step();
+        step.x = mRandomWalk.xArray[index];
+        step.y = mRandomWalk.yArray[index];
+
+        mSparkAdapter.addValue(step);
     }
 
     public class CustomSparkAdapter extends SparkAdapter {
-        private float[] yData;
-        private float[] xData;
+        private ArrayList<Step> mDataset;
 
-        public CustomSparkAdapter(float[] yData, float[] xData) {
-            this.yData = yData;
-            this.xData = xData;
+        public CustomSparkAdapter(ArrayList<Step> dataset) {
+            mDataset = dataset;
+        }
+
+        public void addValue(Step step) {
+            mDataset.add(step);
+            notifyDataSetChanged();
         }
 
         @Override
         public int getCount() {
-            return yData.length;
+            return mDataset.size();
         }
 
         @Override
         public Object getItem(int index) {
-            return yData[index];
+            return mDataset.get(index);
         }
 
         @Override
         public float getY(int index) {
-            return yData[index];
+            return mDataset.get(index).y;
         }
 
         @Override
         public float getX(int index) {
-            return xData[index];
+            return mDataset.get(index).x;
         }
     }
 
-    private void showGraph(RandomWalk randomWalk) {
-        if (mChart == null) {
-            mChart = findViewById(R.id.chart);
-
-            //style chart
-            mChart.getDescription().setEnabled(false);
-            mChart.getLegend().setEnabled(false);
-            mChart.setNoDataText("No hay datos que mostrar");
-            mChart.setNoDataTextColor(ContextCompat.getColor(mContext, R.color.color_accent));
-            mChart.setHighlightPerTapEnabled(false);
-            mChart.getXAxis().setDrawGridLines(false);
-            mChart.getAxisLeft().setDrawGridLines(true);
-            mChart.getAxisRight().setDrawGridLines(false);
-            mChart.getAxisRight().setDrawLabels(false);
-
-            //disable interactions
-            mChart.setTouchEnabled(false);
-            mChart.setDragEnabled(false);
-            mChart.setScaleEnabled(false);
-            mChart.setScaleXEnabled(false);
-            mChart.setScaleYEnabled(false);
-            mChart.setPinchZoom(false);
-            mChart.setDoubleTapToZoomEnabled(false);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
 
-        // add data
-        ArrayList<Entry> values = new ArrayList<>();
-
-        for (int i = 0; i < randomWalk.xArray.length; i++) {
-            values.add(new Entry(randomWalk.xArray[i], randomWalk.yArray[i]));
-        }
-
-//        Collections.sort(values, new EntryXComparator());
-
-        mChart.setData(generateLineData(values));
-        mChart.notifyDataSetChanged();
-        mChart.invalidate();
-
-        Log.e("CHART DATA", mChart.getLineData().getDataSets().get(0).toString());
-    }
-
-    private LineData generateLineData(ArrayList<Entry> values) {
-        LineDataSet dataSet = new LineDataSet(values, "Random Walk");
-        dataSet.setColor(ContextCompat.getColor(mContext, R.color.color_accent_dark));
-        dataSet.setDrawCircles(false);
-        dataSet.setDrawValues(false);
-
-        return new LineData(dataSet);
+        return super.onOptionsItemSelected(item);
     }
 }

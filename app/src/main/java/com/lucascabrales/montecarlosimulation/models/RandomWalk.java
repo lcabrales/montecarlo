@@ -5,10 +5,13 @@ package com.lucascabrales.montecarlosimulation.models;
  */
 
 public class RandomWalk {
+    public int steps;
     public float[] xArray;
     public float[] yArray;
 
     public RandomWalk(int iterations) {
+        steps = iterations;
+
         xArray = new float[iterations + 1];
         yArray = new float[iterations + 1];
 

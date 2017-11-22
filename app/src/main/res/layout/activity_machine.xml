@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RandomWalkActivity">
+    tools:context=".MachineActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -39,43 +39,19 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Ubicación inicial: (0,0)"
-                android:textSize="18sp" />
-
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/il_iterations"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_iterations"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Cantidad de pasos"
+                    android:hint="Cantidad de iteraciones"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="3" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/il_duration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/et_duration"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Duración de la animación (segundos)"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="2" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -93,34 +69,10 @@
             <LinearLayout
                 android:id="@+id/ll_results"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Ubicación final"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_final_coordinates"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_primary_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <com.robinhood.spark.SparkView
-                    android:id="@+id/spark_view"
-                    style="@style/SparkViewStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
