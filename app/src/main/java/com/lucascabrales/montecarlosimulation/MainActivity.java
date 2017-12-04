@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (position) {
             default:
                 try {
-                    intent = new Intent(mContext, Class.forName("com.lucascabrales.montercarlosimulation."
+                    intent = new Intent(mContext, Class.forName("com.lucascabrales.montecarlosimulation."
                             + menu.controller));
                     startActivity(intent);
                 } catch (ClassNotFoundException e) {

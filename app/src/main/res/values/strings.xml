@@ -14,8 +14,45 @@
     <string name="distribution_uniform">La distribucion uniforme es el modelo continuo mas simple y toma el caso
         de una variable aleatoria que solo puede tomar valores entre dos extremos a y b. Tambien se
         puede expresarse como un modelo probabilístico que toma un numero al azar de un intervalo (a, b).
-    </string>
+    </string>time_unit
     <string name="time_unit">%1$s%2$s</string>
+
+    <string name="area_curve"><![CDATA[
+<p>Es un m&eacute;todo en el cual reemplazamos la t&iacute;pica ecuaci&oacute;n con integraci&oacute;n y sus l&iacute;mites y le aplicamos n&uacute;meros aleatorios para poder encontrar su &aacute;rea.</p>
+<p>Pasos de la ejecuci&oacute;n del programa:</p>
+* Definir un &aacute;rea conocida que comprende el &aacute;rea que se desea integrar.<br>
+* Considerar estar&aacute; &aacute;rea como una &aacute;rea con dos zonas y que seg&uacute;n el numero sacado se escribir&aacute; en el plano, esto tomara forma como si lanz&aacute;ramos dardos y que los puntos donde caen son los puntos que hab&iacute;amos calculado. Para este caso los puntos que caen bajo el &aacute;rea que deseamos obtener, lo anotamos para saber la cantidad de aciertos.<br>
+* Repetir este proceso N veces.<br>
+* Calcular la probabilidad de la cantidad de aciertos para poder usarlo en las f&oacute;rmulas de &aacute;rea.
+]]></string>
+
+    <string name="buffons_needle"><![CDATA[
+    <p>La aguja de Buffon es un m&eacute;todo dise&ntilde;ado por el conde de Buffon, Georges Louis Leclerc, en el a&ntilde;o 1733 y que se basada en lanzar agujas aleatoriamente en una superficie con rayas paralelas distanciadas unas de otras y anotaba los tiros que cortaban las l&iacute;neas para poder encontrar el valor aproximado de pi (&pi;).</p>
+<p>Pasos en la ejecuci&oacute;n del programa:</p>
+* Escoger el tama&ntilde;o de la superficie a calcular<br>
+* Generar n&uacute;meros aleatorios como sin&oacute;nimos de agujas<br>
+* Repetir este proceso N veces<br>
+* Anotar los puntos que cortan las l&iacute;neas<br>
+* Calcular &pi;
+]]></string>
+
+    <string name="random_walk"><![CDATA[
+    <p>El tambaleo del borracho o random walk conocido mundialmente, es un procedimiento donde se generan n&uacute;meros aleatorios en diferentes variables y se suman para poder generar una gr&aacute;fica que demuestra un comportamiento aleatorio cada vez que lo realizamos.</p>
+<p>Pasos ejecutados en la simulaci&oacute;n:</p>
+* Crear dos variables que para este caso denominaremos dx y dx. Dentro de estas variables su valor ser&aacute; creado por el generador de n&uacute;meros aleatorios.<br>
+* Crear otras dos funciones con nombre X y Y, pero sus valores iniciales ser&aacute;n 0. Para el c&aacute;lculo se le sumara el valor de respectivo con la letra (se sumara dx con X as&iacute; como tambi&eacute;n dy con Y).<br>
+* Repetir este proceso N cantidad de veces que sea necesaria.<br>
+* Graficar los valores de las variables X y Y.
+]]></string>
+
+    <string name="car_wash"><![CDATA[
+    <p>Este ejemplo consiste en simular el comportamiento de un trabajo en la vida real. Se trata de una empresa que lava autos y como sabemos la llegada de autos no est&aacute; definida y ellos llegan en un periodo de tiempo aleatorio, por lo que es un buen ejemplo para aplicar Monte Carlo y predecir c&oacute;mo ser&iacute;a un comportamiento en la vida real.</p>
+<p>Pasos en la ejecuci&oacute;n del programa:</p>
+* Escoger la distribuci&oacute;n en la que llegan los clientes<br>
+* Escoger la cantidad de tiempo de trabajo<br>
+* Repetir este proceso N cantidad de veces<br>
+* Calcular las estadísticas de los autos atendidos
+]]></string>
 
     <string name="navigation_drawer_open">Menú Desplegado</string>
     <string name="navigation_drawer_close">Menú Cerrado</string>

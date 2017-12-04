@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -30,11 +31,10 @@ public class BuffonsNeedleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_buffons_needle);
 
         mLoading = new LoadingDialogHelper(mContext);
+        mAlertDialog = new AlertDialogHelper(mContext);
 
         setupToolbar();
         setOnClickListeners();
-
-        //TODO ADD INFORMATION
     }
 
     private void setOnClickListeners() {
@@ -43,13 +43,16 @@ public class BuffonsNeedleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.btn_accept:
-                        //TODO ADD CANCEL BUTTON TO LOADING
-                        boolean trust = SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
-                                ((EditText) findViewById(R.id.et_space)).getText().toString())
+                        String size = ((EditText) findViewById(R.id.et_size)).getText().toString();
+                        String space = ((EditText) findViewById(R.id.et_space)).getText().toString();
+
+                        boolean trust = (SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                space)
                                 && SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
-                                ((EditText) findViewById(R.id.et_size)).getText().toString())
+                                size)
                                 && SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
-                                ((EditText) findViewById(R.id.et_qty)).getText().toString());
+                                ((EditText) findViewById(R.id.et_qty)).getText().toString())
+                                && Integer.parseInt(space) > Integer.parseInt(size));
 
                         if (trust) {
                             mLoading.show();
@@ -157,8 +160,8 @@ public class BuffonsNeedleActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
-        } else if (id == R.id.info){
-            mAlertDialog.show("Aguja de Bufón", "Explicación");
+        } else if (id == R.id.info) {
+            mAlertDialog.show("Aguja de Bufón", String.valueOf(Html.fromHtml(getString(R.string.buffons_needle))));
         }
 
         return super.onOptionsItemSelected(item);

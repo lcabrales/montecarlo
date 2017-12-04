@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -190,7 +191,7 @@ public class AreaCurveActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         } else if (id == R.id.info){
-            mAlertDialog.show("Área debajo de la curva", "Explicación");
+            mAlertDialog.show("Área debajo de la curva", String.valueOf(Html.fromHtml(getString(R.string.area_curve))));
         }
 
         return super.onOptionsItemSelected(item);

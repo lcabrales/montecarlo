@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -255,7 +256,7 @@ public class RandomWalkActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         } else if (id == R.id.info) {
-            mAlertDialog.show("Random Walk", "Explicación");
+            mAlertDialog.show("Random Walk", String.valueOf(Html.fromHtml(getString(R.string.random_walk))));
         }
 
         return super.onOptionsItemSelected(item);

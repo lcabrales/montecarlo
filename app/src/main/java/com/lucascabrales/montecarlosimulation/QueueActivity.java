@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -286,7 +287,7 @@ public class QueueActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         } else if (id == R.id.info){
-            mAlertDialog.show("Área debajo de la curva", "Explicación");
+            mAlertDialog.show("Lava Autos (Colas)", String.valueOf(Html.fromHtml(getString(R.string.car_wash))));
         }
 
         return super.onOptionsItemSelected(item);

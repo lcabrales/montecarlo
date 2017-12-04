@@ -33,10 +33,6 @@
             android:label="Random Walk"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CarWashActivity"
-            android:label="Lava Auto"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".QueueActivity"
             android:label="Lava Autos (Colas)"
             android:screenOrientation="portrait" />
