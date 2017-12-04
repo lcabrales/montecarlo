@@ -2,4 +2,21 @@
     <string name="app_name">MontecarloSimulation</string>
     <string name="accept">Aceptar</string>
 
+    <string name="distribution_normal">La distribución normal se refiere a una de las distribuciones de
+        probabilidad utilizadas y que se acerca con más frecuencia aproximada a fenómenos reales.
+        Tiene una gráfica de su función de densidad con una forma acampanada. Esta curva se le conoce
+        como la campana de Gauss y es el grafico de la función gaussiana.
+    </string>
+    <string name="distribution_poisson">Es una de las distribuciones mas importantes de variable discreta.
+        Su principal uso en la modelación hacen referencia a poder simular situaciones en la cual queremos
+        determinar el numero de hechos de cierto tipo que ocurren en un intervalo de tiempo o espacio.
+    </string>
+    <string name="distribution_uniform">La distribucion uniforme es el modelo continuo mas simple y toma el caso
+        de una variable aleatoria que solo puede tomar valores entre dos extremos a y b. Tambien se
+        puede expresarse como un modelo probabilístico que toma un numero al azar de un intervalo (a, b).
+    </string>
+    <string name="time_unit">%1$s%2$s</string>
+
+    <string name="navigation_drawer_open">Menú Desplegado</string>
+    <string name="navigation_drawer_close">Menú Cerrado</string>
 </resources>

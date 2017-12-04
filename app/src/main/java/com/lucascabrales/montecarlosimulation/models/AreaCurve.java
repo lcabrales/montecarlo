@@ -9,6 +9,7 @@ public class AreaCurve {
     public Double xmin;
     public Double xmax;
     public Integer iterations;
+    public String unit;
 
     public Double area;
 }

@@ -14,9 +14,8 @@ public class MainMenu {
 
     public static ArrayList<MainMenu> getList() {
         ArrayList<MainMenu> list = new ArrayList<>();
-        list.add(0, new MainMenu("fa-gears", "Aguja de Buffon", "ParamsActivity"));
-        list.add(1, new MainMenu("fa-line-chart", "Distribuciones", "DistributionsActivity"));
-        list.add(2, new MainMenu("fa-info-circle", "Acerca de Nosotros", "AboutUsActivity"));
+        list.add(new MainMenu("fa-line-chart", "Distribuciones", "DistributionsActivity"));
+        list.add(new MainMenu("fa-info-circle", "Acerca de Nosotros", "AboutUsActivity"));
 
         return list;
     }

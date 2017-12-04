@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QueueActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/CustomToolbarTheme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Parámetros Generales"
+                android:textColor="@color/color_accent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unidad de Tiempo"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/sp_time_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Parámetros de la Cola"
+                android:textColor="@color/color_accent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/itv_info"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="{fa-info-circle}"
+                    android:textColor="@color/color_primary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distribución"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/sp_queue_distribution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_queue_params"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_queue_mean"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Media"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+
+                <EditText
+                    android:id="@+id/et_queue_deviance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:hint="Desviación Estándar"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+
+                <EditText
+                    android:id="@+id/et_max"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:hint="Valor Máximo"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Parámetros del Servidor"
+                android:textColor="@color/color_accent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/itv_info2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="{fa-info-circle}"
+                    android:textColor="@color/color_primary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distribución"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/sp_server_distribution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_server_params"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_server_mean"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Media"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+
+                <EditText
+                    android:id="@+id/et_server_deviance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Desviación Estándar"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ripple_rounded"
+                android:text="Empezar Simulación"
+                android:textColor="@color/white" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_clean"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ripple_rounded"
+                android:text="Limpiar Parámetros"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/color_primary_dark" />
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

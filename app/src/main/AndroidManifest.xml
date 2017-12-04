@@ -3,6 +3,7 @@
     package="com.lucascabrales.montecarlosimulation">
 
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,7 +22,7 @@
         </activity>
         <activity
             android:name=".BuffonsNeedleActivity"
-            android:label="Aguja de Buffon"
+            android:label="Aguja de Bufón"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AreaCurveActivity"
@@ -31,7 +32,30 @@
             android:name=".RandomWalkActivity"
             android:label="Random Walk"
             android:screenOrientation="portrait" />
-        <activity android:name=".MachineActivity"></activity>
+        <activity
+            android:name=".CarWashActivity"
+            android:label="Lava Auto"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QueueActivity"
+            android:label="Lava Autos (Colas)"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SimActivity"
+            android:label="Simulación Lava Autos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResultsActivity"
+            android:label="Resultados de la Simulación"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DistributionsActivity"
+            android:label="Distribuciones de Probabilidad"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutUsActivity"
+            android:label="Acerda de Nostros"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

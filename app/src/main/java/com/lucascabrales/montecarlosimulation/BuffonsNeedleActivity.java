@@ -11,13 +11,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.lucascabrales.montecarlosimulation.helpers.AlertDialogHelper;
 import com.lucascabrales.montecarlosimulation.helpers.LoadingDialogHelper;
+import com.lucascabrales.montecarlosimulation.helpers.SimpleValidator;
 import com.lucascabrales.montecarlosimulation.models.BuffonsNeedle;
 
 public class BuffonsNeedleActivity extends AppCompatActivity {
 
     private BuffonsNeedleActivity mContext = this;
     private LoadingDialogHelper mLoading;
+    private AlertDialogHelper mAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,18 @@ public class BuffonsNeedleActivity extends AppCompatActivity {
                 switch (view.getId()) {
                     case R.id.btn_accept:
                         //TODO ADD CANCEL BUTTON TO LOADING
-                        mLoading.show();
-                        calculatePiEstimate();
+                        boolean trust = SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                ((EditText) findViewById(R.id.et_space)).getText().toString())
+                                && SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                ((EditText) findViewById(R.id.et_size)).getText().toString())
+                                && SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                ((EditText) findViewById(R.id.et_qty)).getText().toString());
+
+                        if (trust) {
+                            mLoading.show();
+                            calculatePiEstimate();
+                        } else
+                            mAlertDialog.show("Error", "Los datos de entrada no son válidos.");
 
                         try {
                             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -127,11 +142,23 @@ public class BuffonsNeedleActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_info, menu);
+        menu.findItem(R.id.info)
+                .setIcon(new IconDrawable(mContext, FontAwesomeIcons.fa_info_circle)
+                        .colorRes(R.color.color_accent_dark).actionBarSize());
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
+        } else if (id == R.id.info){
+            mAlertDialog.show("Aguja de Bufón", "Explicación");
         }
 
         return super.onOptionsItemSelected(item);

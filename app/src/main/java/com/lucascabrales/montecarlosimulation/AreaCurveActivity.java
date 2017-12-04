@@ -12,9 +12,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.lucascabrales.montecarlosimulation.helpers.AlertDialogHelper;
 import com.lucascabrales.montecarlosimulation.helpers.LoadingDialogHelper;
 import com.lucascabrales.montecarlosimulation.helpers.MathEval;
+import com.lucascabrales.montecarlosimulation.helpers.SimpleValidator;
 import com.lucascabrales.montecarlosimulation.models.AreaCurve;
 
 public class AreaCurveActivity extends AppCompatActivity {
@@ -51,8 +54,20 @@ public class AreaCurveActivity extends AppCompatActivity {
                 switch (view.getId()) {
                     case R.id.btn_accept:
                         //TODO ADD CANCEL BUTTON TO LOADING
-                        mLoading.show();
-                        calculateArea();
+                        boolean trust = SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                ((EditText) findViewById(R.id.et_function)).getText().toString())
+                                && SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                ((EditText) findViewById(R.id.et_xmin)).getText().toString())
+                                && SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                ((EditText) findViewById(R.id.et_xmax)).getText().toString())
+                                && SimpleValidator.validate(SimpleValidator.NOT_EMPTY,
+                                ((EditText) findViewById(R.id.et_iterations)).getText().toString());
+
+                        if (trust) {
+                            mLoading.show();
+                            calculateArea();
+                        } else
+                            mAlertDialog.show("Error", "Los datos de entrada no son válidos.");
 
                         try {
                             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -73,17 +88,19 @@ public class AreaCurveActivity extends AppCompatActivity {
         String function = ((EditText) findViewById(R.id.et_function)).getText().toString();
         double xmin = Double.parseDouble(((EditText) findViewById(R.id.et_xmin)).getText().toString());
         double xmax = Double.parseDouble(((EditText) findViewById(R.id.et_xmax)).getText().toString());
+        String unit = ((EditText) findViewById(R.id.et_unit)).getText().toString();
         int iterations = Integer.parseInt(((EditText) findViewById(R.id.et_iterations)).getText().toString());
 
         AreaCurve areaCurve = new AreaCurve();
         areaCurve.function = function;
         areaCurve.xmin = xmin;
         areaCurve.xmax = xmax;
+        areaCurve.unit = unit;
         areaCurve.iterations = iterations;
 
-        new AsyncTask<AreaCurve, String, Double>() {
+        new AsyncTask<AreaCurve, String, String>() {
             @Override
-            protected Double doInBackground(AreaCurve... areaCurves) {
+            protected String doInBackground(AreaCurve... areaCurves) {
                 AreaCurve areaCurve = areaCurves[0];
 
                 String function = areaCurve.function;
@@ -94,7 +111,7 @@ public class AreaCurveActivity extends AppCompatActivity {
                 try {
                     // Find ymin and ymax
                     int numSteps = areaCurve.iterations; //bigger the better but slower!
-                    //TODO VALIDATE X ONLY
+
                     MathEval eval = new MathEval();
                     eval.setVariable("x", xmin);
                     double ymin = eval.evaluate(function);
@@ -133,27 +150,37 @@ public class AreaCurveActivity extends AppCompatActivity {
 
                     Log.e("AREA", String.valueOf(finalArea));
 
-                    return finalArea;
-                } catch (Exception e){
+                    return finalArea + " " + areaCurve.unit;
+                } catch (Exception e) {
                     e.printStackTrace();
                     return null;
                 }
             }
 
             @Override
-            protected void onPostExecute(Double area) {
+            protected void onPostExecute(String area) {
                 super.onPostExecute(area);
 
                 mLoading.dismiss();
 
-                if (area == null){
-                    mAlertDialog.show("Error", "Ha ocurrido un error");
+                if (area == null) {
+                    mAlertDialog.show("Error", "Ha ocurrido un error. Verifique la función introducida.");
                 } else {
                     findViewById(R.id.ll_results).setVisibility(View.VISIBLE);
-                    ((TextView) findViewById(R.id.tv_area)).setText(String.valueOf(area));
+                    ((TextView) findViewById(R.id.tv_area)).setText(area);
                 }
             }
         }.execute(areaCurve);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_info, menu);
+        menu.findItem(R.id.info)
+                .setIcon(new IconDrawable(mContext, FontAwesomeIcons.fa_info_circle)
+                        .colorRes(R.color.color_accent_dark).actionBarSize());
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -162,6 +189,8 @@ public class AreaCurveActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
+        } else if (id == R.id.info){
+            mAlertDialog.show("Área debajo de la curva", "Explicación");
         }
 
         return super.onOptionsItemSelected(item);

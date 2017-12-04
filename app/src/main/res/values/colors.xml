@@ -14,4 +14,7 @@
     <color name="ripple">@color/color_accent</color>
     <color name="ripple_dark">@color/color_accent_dark</color>
     <color name="gray">#4B4B4B</color>
+    <color name="queue_circle">@color/color_primary</color>
+    <color name="server_circle">#0F8400</color>
+    <color name="server_square">#840002</color>
 </resources>

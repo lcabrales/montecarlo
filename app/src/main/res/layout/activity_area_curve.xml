@@ -27,8 +27,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:focusableInTouchMode="true"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
@@ -53,33 +53,57 @@
                     android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/il_xmin"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/et_xmin"
-                    android:layout_width="match_parent"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/il_xmin"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Valor X mínimo"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberSigned" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_weight="1">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/il_xmax"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_xmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="X mínimo"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberSigned" />
+                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/et_xmax"
-                    android:layout_width="match_parent"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/il_xmax"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Valor X máximo"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberSigned" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_xmax"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="X máximo"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberSigned" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/il_unit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Unidad"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="10" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/il_iterations"
@@ -92,8 +116,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Repeticiones"
                     android:imeOptions="actionNext"
-                    android:maxLength="6"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="6" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -113,8 +137,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"

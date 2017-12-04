@@ -25,6 +25,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
     compile 'com.android.support:design:26.1.0'

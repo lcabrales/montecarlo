@@ -44,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Ubicación inicial: (0,0)"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/il_iterations"
